@@ -22,7 +22,7 @@ namespace SimpleBlog
             //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             //);
 
-
+            // use this since 2 controller name Posts
             var namespaces = new[] {typeof(PostsController).Namespace};
             
             // url empty so act as index/default
