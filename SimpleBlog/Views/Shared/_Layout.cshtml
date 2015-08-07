@@ -1,0 +1,30 @@
+﻿@{
+    // top layout so null other layout -> act as master
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <!-- Dynamic title -->
+    <title>@ViewBag.Title - Simple Blog</title>
+</head>
+    <body>
+        <header>
+            <h1>Simple Blog</h1>
+            <a href="@Url.RouteUrl("Home")">Home</a> | <a href="@Url.RouteUrl("login")">Login</a>
+        </header>
+
+        <!-- Insert View Here-->
+        @RenderBody()
+
+        <footer>
+            &copy; @DateTime.UtcNow.Year - Nick Goodrow
+        </footer>
+
+        <!-- This act as content part -->
+        @RenderSection("Scripts", false)
+    </body>
+</html>

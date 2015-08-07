@@ -8,10 +8,10 @@ namespace SimpleBlog.Controllers
 {
     public class PostsController : Controller
     {
-
-        public ActionResult Index() {
-
-            return Content("Hey is this working?");
+        // GET: Posts
+        public ActionResult Index()
+        {
+            return View();
         }
     }
 }
