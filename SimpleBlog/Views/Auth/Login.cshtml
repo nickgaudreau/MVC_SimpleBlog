@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model SimpleBlog.ViewModels.AuthLogin
 
 @{
     ViewBag.Title = "Login";
@@ -6,3 +6,31 @@
 
 <h2>This is the login View</h2>
 
+<p>
+    The value of test is : @Model.Test
+</p>
+
+<p>
+    <!--Strongly type properties-->
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        
+        <div>
+            @Html.LabelFor(x => x.Username)
+            @Html.EditorFor(x => x.Username)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Password)
+            @Html.EditorFor(x => x.Password)
+        </div>
+        <div>
+            <input type="submit" value="Login"/>
+        </div>
+    }
+
+</p>
+
+<p>
+    @Model.Valid
+</p>
