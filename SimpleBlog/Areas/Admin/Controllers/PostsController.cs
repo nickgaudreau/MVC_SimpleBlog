@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace SimpleBlog.Areas.Admin.Controllers
 {
+
+    //Set roles - Admin: not accessible to non-authorized nor non-admin users
+    [Authorize(Roles = "admin")]
     public class PostsController : Controller
     {
         // GET: Admin/Posts

@@ -14,8 +14,30 @@
     <body>
         <header>
             <h1>Simple Blog</h1>
-            <a href="@Url.RouteUrl("Home")">Home</a> | <a href="@Url.RouteUrl("login")">Login</a>
+            <a href="@Url.RouteUrl("Home")">Home</a><span> | </span>@if (User.Identity.IsAuthenticated)
+            {
+                                                           <a href="@Url.RouteUrl("logout")">Logout</a>
+                                                           if (User.IsInRole("admin"))
+                                                           {
+                                                               // use area to diff the 2 posts in our solution
+                                                               <span> | </span><a href="@Url.Action("Index", "Posts", new{area="Admin"})">Admin Posts</a>
+                                                           }
+                                                       } else { <a href="@Url.RouteUrl("login")">Login</a>}
+            
         </header>
+
+        <!--If user authenticated say something and give a logout link-->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p>Welcome back, @User.Identity.Name</p>
+        }
+        else
+        {
+            // inside an @Razor C# block must use a html tag to engage html 
+            <p>
+                Hey you.. please login <a href="@Url.RouteUrl("login")">here</a>
+            </p>
+        }
 
         <!-- Insert View Here-->
         @RenderBody()

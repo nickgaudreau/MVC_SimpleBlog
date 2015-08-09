@@ -40,6 +40,13 @@ namespace SimpleBlog
                 namespaces
                 );
 
+            routes.MapRoute(
+                "Logout",
+                "logout",
+                new { controller = "Auth", action = "Logout" },
+                namespaces
+                );
+
 
         }
     }

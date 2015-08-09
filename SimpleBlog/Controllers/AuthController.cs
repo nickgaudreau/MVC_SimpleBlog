@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SimpleBlog.ViewModels;
 
 namespace SimpleBlog.Controllers
@@ -15,14 +16,13 @@ namespace SimpleBlog.Controllers
             return View(new AuthLogin()
             {
                 Test = "Test value obj instanciate with default GET",
-                Valid = "",
-                Username = "Default"
+                Valid = ""
             });
         }
 
-        // Post here
-        [HttpPost]
-        public ActionResult Login(AuthLogin form)
+        // Param -> string returnUrl get automatically what the RequestReturnUrl is from the Model Binder
+        [HttpPost] //to take post submit form
+        public ActionResult Login(AuthLogin form, string returnUrl)
         {
             // we use the form to change data and pass it to next view
             form.Test = "Value of Test changes after POST ";
@@ -35,15 +35,24 @@ namespace SimpleBlog.Controllers
                 return View(form);
             }
 
-            // check is user/email valid loop back from db per say
-            if (form.Username != "admin")
+            // Authentication for RoleProvider.cs - GetRolesForUser(username)
+            FormsAuthentication.SetAuthCookie(form.Username, true);
+            // THEN AUTHORIZATION OCCURS -> RoleProvider.cs - GetRolesForUser(username)
+
+            if (!string.IsNullOrWhiteSpace(returnUrl))
             {
-                ModelState.AddModelError("Username", "USernamer or password was not found!");
-                form.Valid = "! - The form is INVALID";
-                return View(form);
+                // might want to check that we don't redirect to an external domain for hacking safe
+                return Redirect(returnUrl);
             }
 
-            return View(form);
+            return RedirectToRoute("Home");
+        }
+
+        // this not need to be post
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToRoute("Home");
         }
     }
 
