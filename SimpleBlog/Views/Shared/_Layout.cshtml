@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Web.Optimization
+@{
     // top layout so null other layout -> act as master
     Layout = null;
 }
@@ -10,10 +11,11 @@
     <meta name="viewport" content="width=device-width"/>
     <!-- Dynamic title -->
     <title>@ViewBag.Title - Simple Blog</title>
+    @Styles.Render("~/styles")
 </head>
     <body>
         <header>
-            <h1>Simple Blog</h1>
+            <h1>Simple <i class="glyphicon glyphicon-bitcoin"></i>log </h1>
             <a href="@Url.RouteUrl("Home")">Home</a><span> | </span>@if (User.Identity.IsAuthenticated)
             {
                                                            <a href="@Url.RouteUrl("logout")">Logout</a>
@@ -46,6 +48,8 @@
             &copy; @DateTime.UtcNow.Year - Nick Goodrow
         </footer>
 
+        <!-- Main Scripts Bundle before single Views Scripts-->
+        @Scripts.Render("~/scripts")
         <!-- This act as content part -->
         @RenderSection("Scripts", false)
     </body>
