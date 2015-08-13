@@ -1,0 +1,59 @@
+﻿@using System.Web.Optimization
+@{
+    // top layout so null other layout -> act as master
+    Layout = null;
+}
+
+<!-- this can now be use as method everywhere in cshtml-->
+@helper SeletectedTabClass(string tabName)
+{
+    if (tabName == ViewBag.SelectedTab)
+    {
+        // this is like a return value -> active
+        @: active
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Dynamic title -->
+    <title>@ViewBag.Title - Simple Blog Admin</title>
+    @Styles.Render("~/admin/styles")
+</head>
+<body>
+    <header>
+        <h1>Simple <i class="glyphicon glyphicon-bitcoin"></i>log - Admin </h1>
+    </header>
+
+    <div class="container">
+        <ul class="nav nav-pills">
+            <!-- use the Global method from above that return active from the controller attribute, that then create an instance of -->
+            <li class="@SeletectedTabClass("Posts")">
+                <!--This will generate: <a href="/Admin/Posts">Posts</a> ...and index by default -->
+                @Html.ActionLink("Posts", "Index", "Posts", new {area = "admin"}, new {})
+            </li>
+            <li class="@SeletectedTabClass("Users")">
+                @Html.ActionLink("Users", "Index", "Users", new {area = "admin"}, new {})
+            </li>
+            <li class="pull-right">
+                @Html.RouteLink("Back To Website", "Home")
+            </li>
+        </ul>
+        @RenderBody()
+    </div>
+
+   
+
+    <footer>
+        &copy; @DateTime.UtcNow.Year - Nick Goodrow
+    </footer>
+
+    <!-- Main Scripts Bundle before single Views Scripts-->
+    @Scripts.Render("~/admin/scripts")
+    <!-- This act as content part -->
+    @RenderSection("Scripts", false)
+</body>
+</html>

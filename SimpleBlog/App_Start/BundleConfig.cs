@@ -14,7 +14,7 @@ namespace SimpleBlog.App_Start
             // how we will target them from Views : new StyleBundle("~/admin/styles")
             bundles.Add(new StyleBundle("~/admin/styles")
                 .Include("~/Content/Styles/bootstrap.css")
-                .Include("~/Content/Styles/admin.css"));
+                .Include("~/Content/Styles/Admin.css"));
 
             // Style Main
             bundles.Add(new StyleBundle("~/styles")
