@@ -1,4 +1,4 @@
-﻿
+﻿@model SimpleBlog.Areas.Admin.ViewModels.UsersIndex
 @{
     ViewBag.Title = "Index";
 }
@@ -13,6 +13,12 @@
 <body>
 <div>
     <h1>Admin USers</h1>
+    <ul>
+        @foreach (var user in Model.Users)
+        {
+            <li>@user.Username, @user.Email</li>
+        }
+    </ul>
 </div>
 </body>
 </html>
