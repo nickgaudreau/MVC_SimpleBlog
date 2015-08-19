@@ -16,7 +16,7 @@ namespace SimpleBlog.Areas.Admin
         {
             context.MapRoute(
                 "Admin_default",
-                "Admin/{controller}/{action}/{id}",
+                "Admin/{controller}/{action}/{id}", // ex: admin/users/edit/10
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

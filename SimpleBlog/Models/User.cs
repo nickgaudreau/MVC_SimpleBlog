@@ -17,6 +17,11 @@ namespace SimpleBlog.Models
         public virtual string Username { get; set; }
         public virtual string Email { get; set; }
         public virtual string PasswordHash { get; set; }
+
+        public virtual void SetPassword(string password)
+        {
+            PasswordHash = "Filler for now..";
+        }
     }
 
     // loads of way to do the mapping here is 1....
