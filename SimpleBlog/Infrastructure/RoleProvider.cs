@@ -12,7 +12,7 @@ namespace SimpleBlog.Infrastructure
         public override string[] GetRolesForUser(string username)
         {
             // check for who is allowed to what or return empty
-            if(username == "admin")
+            if (username == "admin" || username == "Nick")
                 return new[] {"admin"};
 
             return new string[] {};
