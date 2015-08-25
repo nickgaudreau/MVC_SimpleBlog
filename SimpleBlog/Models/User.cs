@@ -27,6 +27,13 @@ namespace SimpleBlog.Models
         public virtual string Email { get; set; }
         public virtual string PasswordHash { get; set; }
 
+        public virtual IList<Role> Roles { get; set; }
+
+        public User()
+        {
+            Roles = new List<Role>();
+        }
+
         public virtual void SetPassword(string password)
         {
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(password, WorkFactor);
@@ -58,6 +65,13 @@ namespace SimpleBlog.Models
                 x.NotNullable(true);
 
             });
+
+            // Bag is a collection: ability to relate an entity one or more time to another entity
+            Bag(x => x.Roles, x =>
+            {
+                x.Table("role_users");
+                x.Key(k => k.Column("user_id"));
+            }, x => x.ManyToMany(z => z.Column("role_id")));
         }
     }
 }

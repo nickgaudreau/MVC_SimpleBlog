@@ -12,10 +12,13 @@ namespace SimpleBlog.Infrastructure
         public override string[] GetRolesForUser(string username)
         {
             // check for who is allowed to what or return empty
-            if (username == "admin" || username == "Nick")
-                return new[] {"admin"};
+            //if (username == "admin" || username == "Nick")
+            //    return new[] {"admin"};
 
-            return new string[] {};
+            //return new string[] {}; // removed video 20
+
+            // this will correctly return DB roles
+            return Auth.User.Roles.Select(role => role.Name).ToArray();
         }
 
         public override bool IsUserInRole(string username, string roleName)
