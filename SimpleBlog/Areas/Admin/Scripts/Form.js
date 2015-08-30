@@ -23,4 +23,23 @@
             .appendTo(document.body)
             .submit();
     });
+
+    // loop data-slug attr element
+    $("[data-slug]").each(function() {
+        var $this = $(this); 
+        var $sendSlugFrom = $($this.data("slug")); // store its value
+
+        $sendSlugFrom.keyup(function() { // everytime a key is press we produced a slug of that data
+            var slug = $sendSlugFrom.val();
+            slug = slug.replace(/[^a-zA-Z0-9\s]/g, ""); // remove special char for empty
+            slug = slug.toLowerCase();
+            slug = slug.replace(/\s+/g, "-"); // remove spaces for -
+
+            if (slug.charAt(slug.length - 1) == "-")
+                slug = slug.substr(0, slug.length - 1);
+
+            $this.val(slug);
+        });
+    });
+
 });

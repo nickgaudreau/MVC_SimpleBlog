@@ -16,7 +16,7 @@ namespace SimpleBlog.Migrations
                 .WithColumn("slug").AsString(128)
                 .WithColumn("create_at").AsDateTime()
                 .WithColumn("updated_at").AsDateTime().Nullable()
-                .WithColumn("deleted_at").AsDateTime().Nullable();
+                .WithColumn("delete_at").AsDateTime().Nullable();
 
 
             Create.Table("tags")

@@ -57,7 +57,7 @@ namespace SimpleBlog.Models
             });
 
             Property(x => x.UpdatedAt, x => x.Column("updated_at"));
-            Property(x => x.DeleteAt, x => x.Column("deleted_at"));
+            Property(x => x.DeleteAt, x => x.Column("delete_at"));
 
             // link IList tags to our posts
             Bag(x => x.Tags, x =>

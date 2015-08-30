@@ -23,7 +23,8 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(f => f.Slug)
-                @Html.TextBoxFor(f => f.Slug, new {@class = "form-control"})
+                @Html.TextBoxFor(f => f.Slug, new { @class = "form-control", data_slug="#Title"})
+                <!-- C# transform underscore to dash for html5 data attr.... we point to #Title which is geenreated id for the above title -->
             </div>
             <div class="form-group">
                 @Html.LabelFor(f => f.Content)

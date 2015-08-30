@@ -51,51 +51,54 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var post in Model.Posts)
+    @foreach (var post in Model.Posts)
+    {
+
+        var cls = "";
+        if (post.IsDeleted)
         {
-
-            var cls = "";
-            if (post.IsDeleted)
-            {
-                cls = "danger";
-            }
-            
-            <tr class="@cls">
-                <td>@post.Title</td>
-                <td>@post.User.Username</td>
-                <td>@string.Join(",", post.Tags.Select(t => t.Name))</td>
-                <td>@post.CreatedAt</td>
-                <td>
-                    <!-- edit => creating a link going to have the post id page in the query string-->
-                    <a href="@Url.Action("edit", new {post.Id})"class="btn btn-xs btn-primary">
-                        <i class="glyphicon glyphicon-edit"></i> edit
-                    </a>
-
-                    @if (!post.IsDeleted)
-                    {
-                        <div class="btn-group btn-group-xs">
-                            <a href="#" class="btn btn-danger">
-                                <i class="glyphicon glyphicon-remove"></i> Trash
-                            </a>
-                            <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="glyphicon glyphicon-remove"></i> Delete
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    }
-                    else
-                    {
-                        <a href="#" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> Restore</a>
-                    }
-                </td>
-            </tr>
+            cls = "danger";
         }
+
+        <tr class="@cls">
+            <td>@post.Title</td>
+            <td>@post.User.Username</td>
+            <td>@string.Join(",", post.Tags.Select(t => t.Name))</td>
+            <td>@post.CreatedAt</td>
+            <td>
+                <!-- edit => creating a link going to have the post id page in the query string-->
+                <a href="@Url.Action("edit", new {post.Id})"class="btn btn-xs btn-primary">
+                    <i class="glyphicon glyphicon-edit"></i> edit
+                </a>
+
+                @if (!post.IsDeleted)
+                {
+                    <div class="btn-group btn-group-xs">
+                        <a href="@Url.Action("Trash", new{post.Id})" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-remove"></i> Trash
+                        </a>
+                        <a href="#" class="dropdown-toggle btn btn-danger" data-toggle="dropdown" role="menu" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Delete", new{post.Id})">
+                                    <i class="glyphicon glyphicon-remove"></i> Delete
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="@Url.Action("Delete", new { post.Id })">
+                            <i class="glyphicon glyphicon-remove"></i> Delete
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <a href="@Url.Action("Restore", new { post.Id })" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> Restore</a>
+                }
+            </td>
+        </tr>
+    }
     </tbody>
-    
-    
+
+
 </table>
 

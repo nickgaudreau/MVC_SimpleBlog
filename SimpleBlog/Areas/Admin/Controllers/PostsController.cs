@@ -88,6 +88,9 @@ namespace SimpleBlog.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var post = Database.Session.Load<Post>(id);
+
+            System.Diagnostics.Debug.WriteLine("test if nulll" + post.Title);
+
             if (post == null)
                 return HttpNotFound();
 
@@ -100,6 +103,56 @@ namespace SimpleBlog.Areas.Admin.Controllers
                 Title = post.Title
             });
 
+        }
+
+        
+        public ActionResult Trash(int id)
+        {
+            var post = Database.Session.Load<Post>(id);
+
+            System.Diagnostics.Debug.WriteLine("test trash : " + post.Title);
+
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            post.DeleteAt = DateTime.UtcNow;
+            Database.Session.Update(post);
+            return RedirectToAction("Index");
+        }
+
+        
+        public ActionResult Delete(int id)
+        {
+            var post = Database.Session.Load<Post>(id);
+
+            System.Diagnostics.Debug.WriteLine("test delete: " + post.Title);
+
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            Database.Session.Delete(post);
+            return RedirectToAction("Index");
+        }
+
+        
+        public ActionResult Restore(int id)
+        {
+            var post = Database.Session.Load<Post>(id);
+
+            System.Diagnostics.Debug.WriteLine("test if Restore: " + post.Title);
+
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            post.DeleteAt = null;
+            Database.Session.Update(post);
+            return RedirectToAction("Index");
         }
     }
 }
