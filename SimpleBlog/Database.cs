@@ -23,7 +23,7 @@ namespace SimpleBlog
         }
 
         /// <summary>
-        /// Invoke an App startup config hibernate
+        /// Invoke an App startup config hibernate..this is self invoking?
         /// </summary>
         public static void Configure()
         {
