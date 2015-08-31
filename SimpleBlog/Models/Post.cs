@@ -27,7 +27,12 @@ namespace SimpleBlog.Models
             get { return DeleteAt != null; }
         }
 
-        public virtual IList<Tag> Tags { get; set; } 
+        public virtual IList<Tag> Tags { get; set; }
+
+        public Post()
+        {
+            Tags = new List<Tag>();
+        }
         
     }
 

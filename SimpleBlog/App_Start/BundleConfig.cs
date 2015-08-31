@@ -28,7 +28,8 @@ namespace SimpleBlog.App_Start
                 .Include("~/Scripts/jquery.validate.js")
                 .Include("~/Scripts/jquery.validate.unobtrusive.js")
                 .Include("~/SimpleBlog/Scripts/bootstrap.js")
-                .Include("~/Areas/Admin/Scripts/Form.js")
+                .Include("~/Areas/Admin/Scripts/form.js")
+                .Include("~/Areas/Admin/Scripts/posteditor.js")
                 );
 
             bundles.Add(new ScriptBundle("~/scripts")

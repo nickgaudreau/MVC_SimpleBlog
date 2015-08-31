@@ -39,6 +39,47 @@
                     <a href="@Url.Action("Index")"> or Cancel</a>
                 </div>
             </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">Tags</div>
+                <div class="panel-body post-tag-editor">
+                    <label for="new-tag-name">New Tag:</label>
+                    <div class="input-group">
+                        <input id="new-tag-name" type="text" class="new-tag-name form-control"/>
+                        <span class="input-group-btn">
+                            <button disabled class="btn btn-primary add-tag-button">Add</button>
+                        </span>
+                    </div>
+
+                    <ul class="tag-select">
+                        <!-- use this below li as template to clone-->
+                        <li class="template">
+                            <a href="#" class="name"></a>
+                            <input type="hidden" class="name-input"/>
+                            <input type="hidden" class="selected-input"/>
+                        </li>
+
+                        @for (var i = 0; i < Model.Tags.Count; i++)
+                        {
+                            var tag = Model.Tags[i];
+
+                            <!-- data-tag-id="AROBAStag.Id" giveus a way to get the element -->
+                            <li data-tag-id="@tag.Id" class="@(tag.IsChecked ? "selected" : "") ">
+                                <a href="#">@tag.Name</a>
+
+                                <input type="hidden" name="Tags[@i].Id" value="@tag.Id"/> 
+                                <input type="hidden" name="Tags[@i].Name" value="@tag.Name"/>
+                                <!-- this for JS used to link to element class="selected-input" -->
+                                <input type="hidden" name="Tags[@i].IsChecked" value="@tag.IsChecked.ToString()" class="selected-input"/>
+                            </li>
+                        }
+                    </ul>
+
+
+                </div>
+            </div>
+
+
         </div>
     </div>
     
