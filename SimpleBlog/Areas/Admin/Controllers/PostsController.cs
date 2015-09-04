@@ -17,7 +17,7 @@ namespace SimpleBlog.Areas.Admin.Controllers
     [SelectedTab("Posts")]
     public class PostsController : Controller
     {
-        private const int PostsPerPage = 5;
+        private const int PostsPerPage = 8;
 
 
         // GET: Admin/Posts ... accept one param int and deault to one if not specifed => int page = 1
@@ -25,10 +25,19 @@ namespace SimpleBlog.Areas.Admin.Controllers
         {
             var totalPostCount = Database.Session.Query<Post>().Count();
 
-            var currentPostPage = Database.Session.Query<Post>()
+            // return an array of post ids
+            var postIds = Database.Session.Query<Post>()
                 .OrderByDescending(c => c.CreatedAt)
-                .Skip((page - 1) * PostsPerPage)
+                .Skip((page - 1)*PostsPerPage)
                 .Take(PostsPerPage)
+                .Select(p => p.Id)
+                .ToArray();
+
+            var currentPostPage = Database.Session.Query<Post>()
+                .Where(p => postIds.Contains(p.Id))
+                .OrderByDescending(c => c.CreatedAt)
+                .FetchMany(f => f.Tags)
+                .Fetch(f => f.User)
                 .ToList();
 
 
