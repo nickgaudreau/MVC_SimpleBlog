@@ -1,0 +1,31 @@
+﻿@model SimpleBlog.Infrastructure.PagedData<SimpleBlog.Models.Post>
+           <!-- The Model keyuword ref to Models.Posts -->
+           
+<!-- From model sent by controller we access our posts-->
+@foreach (var post in Model)
+{
+    @Html.Partial("_Post", post)
+}
+
+<ul class="list-unstyled">
+    <!--PAgination-->
+    @if (Model.HasPreviousPage)
+    {
+        <!-- null will make it work with which ever Action that called it-->
+        <li class="pull-left">
+            <a href="@Url.Action(null, new {page = Model.PreviousPage})" class="btn btn-primary btn-sm">
+                <i class="glyphicon glyphicon-chevron-left"></i>Newer Posts
+            </a>
+        </li>
+    }
+    @if (Model.HasNextPage)
+    {
+        <li class="pull-left">
+            <!-- null will make it work with which ever Action that called it-->
+            <a href="@Url.Action(null, new {page = Model.NextPage})" class="btn btn-primary btn-sm">
+                Older Posts <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        </li>
+    }
+
+</ul>

@@ -1,20 +1,12 @@
-﻿@{
+﻿@model SimpleBlog.ViewModels.PostsIndex
+
+@{
     ViewBag.Title = "Posts";
 }
 
+@Html.Partial("_Posts", Model.Posts)
 
-    <h2>Posts Index View</h2>
-
-    <p>
-        <!-- Genrate the url best way for later manip-->
-        <a href="@Url.RouteUrl("login")">Log In</a>
-    </p>
-    <p>
-        <!-- Genrate the url other way-->
-        Or @Html.RouteLink("Cick here", "login") to login
-    </p>
-
-    <!-- This could be at the top but will still render at bottom -->
+<!-- This could be at the top but will still render at bottom -->
     @section Scripts
     {
         <script>
