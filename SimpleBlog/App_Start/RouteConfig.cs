@@ -24,14 +24,16 @@ namespace SimpleBlog
 
 
             var namespaces = new[] {typeof(PostsController).Namespace};
-            
-            // url empty so act as index/default
-            routes.MapRoute(
-                "Home", 
-                "", 
-                new { controller = "Posts", action = "Index" },
-                namespaces
-                );
+
+            // Posts
+            // Mvc does not let us seprate our url with dash.. must use slash so workaround below. I.e: http://blog.dev/post/423-this-is-a-slug
+            routes.MapRoute("PostWorkAroundDashURL", "post/{idAndSlug}", new { controller = "Posts", action = "Show" }, namespaces);
+            routes.MapRoute("Post", "post/{id}-{slug}", new { controller = "Posts", action = "Show" }, namespaces);
+
+            // Tags
+            // Mvc does not let us seprate our url with dash.. must use slash so workaround below. I.e: http://blog.dev/post/423-this-is-a-slug
+            routes.MapRoute("TagWorkAroundDashURL", "tag/{idAndSlug}", new { controller = "Posts", action = "Tag" }, namespaces);
+            routes.MapRoute("Tag", "tag/{id}-{slug}", new { controller = "Posts", action = "Tag" }, namespaces);
 
             routes.MapRoute(
                 "Login",
@@ -47,15 +49,15 @@ namespace SimpleBlog
                 namespaces
                 );
 
-            // Posts
-            // Mvc does not let us seprate our url with dash.. must use slash so workaround below. I.e: http://blog.dev/post/423-this-is-a-slug
-            routes.MapRoute("PostWorkAroundDashURL", "post/{idAndSlug}", new { controller = "Posts", action = "Show" }, namespaces);
-            routes.MapRoute("Post", "post/{id}-{slug}", new {controller = "Posts", action = "Show"}, namespaces);
+            // url empty so act as index/default
+            routes.MapRoute(
+                "Home", 
+                "", 
+                new { controller = "Posts", action = "Index" },
+                namespaces
+                );
 
-            // Tags
-            // Mvc does not let us seprate our url with dash.. must use slash so workaround below. I.e: http://blog.dev/post/423-this-is-a-slug
-            routes.MapRoute("TagWorkAroundDashURL", "tag/{idAndSlug}", new { controller = "Posts", action = "Tag" }, namespaces);
-            routes.MapRoute("Tag", "tag/{id}-{slug}", new { controller = "Posts", action = "Tag" }, namespaces);
+            routes.MapRoute("Sidebar", "", new { controller = "Layout", action = "Sidebar" }, namespaces);
 
 
         }

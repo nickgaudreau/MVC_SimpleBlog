@@ -8,49 +8,70 @@
 
 <html>
 <head>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
     <!-- Dynamic title -->
     <title>@ViewBag.Title - Simple Blog</title>
     @Styles.Render("~/styles")
 </head>
-    <body>
-        <header>
-            <h1>Simple <i class="glyphicon glyphicon-bitcoin"></i>log </h1>
-            <a href="@Url.RouteUrl("Home")">Home</a><span> | </span>@if (User.Identity.IsAuthenticated)
-            {
-                                                           <a href="@Url.RouteUrl("logout")">Logout</a>
-                                                           if (User.IsInRole("admin"))
-                                                           {
-                                                               // use area to diff the 2 posts in our solution
-                                                               <span> | </span><a href="@Url.Action("Index", "Posts", new{area="Admin"})">Admin Posts</a>
-                                                           }
-                                                       } else { <a href="@Url.RouteUrl("login")">Login</a>}
-            
+<body>
+
+    <div class="site-header">
+        <header class="container">
+            <h1 class="page-header">
+                <a href="@Url.RouteUrl("Home")">.NET Blog</a>
+                <small> a simple but powerful MVC blog</small>
+                | </span>@if (User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.RouteUrl("logout")">Logout</a>
+                    if (User.IsInRole("admin"))
+                    {
+                        // use area to diff the 2 posts in our solution
+                        <span> | </span><a href="@Url.Action("Index", "Posts", new {area = "Admin"})">Admin Posts</a>
+                    }
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("login")">Login</a>}
+            </h1>
+            <div class="pull-right">
+                <!--If user authenticated say something and give a logout link-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <p>Welcome back, @User.Identity.Name</p>
+                }
+                else
+                {
+                    // inside an @Razor C# block must use a html tag to engage html
+                    <p>
+                        Hey you.. please login <a href="@Url.RouteUrl("login")">here</a>
+                    </p>
+                }
+            </div>
         </header>
+    </div>
 
-        <!--If user authenticated say something and give a logout link-->
-        @if (User.Identity.IsAuthenticated)
-        {
-            <p>Welcome back, @User.Identity.Name</p>
-        }
-        else
-        {
-            // inside an @Razor C# block must use a html tag to engage html 
-            <p>
-                Hey you.. please login <a href="@Url.RouteUrl("login")">here</a>
-            </p>
-        }
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            @RenderBody()
+        </div>
+        <div class="col-lg-4 sidebar">
+            <!-- must access data, use ViewBag or... use a middle man layout controller: but must be routable-->
+            @Html.Action("Sidebar", "Layout")
+        </div>
+    </div>
 
-        <!-- Insert View Here-->
-        @RenderBody()
-
-        <footer>
+    <footer>
+        <p>
             &copy; @DateTime.UtcNow.Year - Nick Goodrow
-        </footer>
+        </p>
+    </footer>
+</div>
 
-        <!-- Main Scripts Bundle before single Views Scripts-->
-        @Scripts.Render("~/scripts")
-        <!-- This act as content part -->
-        @RenderSection("Scripts", false)
-    </body>
+<!-- Main Scripts Bundle before single Views Scripts-->
+@Scripts.Render("~/scripts")
+<!-- This act as content part -->
+@RenderSection("Scripts", false)
+</body>
 </html>
